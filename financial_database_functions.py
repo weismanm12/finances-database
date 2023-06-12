@@ -192,14 +192,6 @@ def checking_file_cleanup(csv_file):
     
     # Identifies interest received
     checking_df.loc[checking_df['transaction_description'].str.contains('interest'), ['transaction_type_id', 'category_id']] = [9, 19]
-
-    # Identifies venmo payments
-    checking_df.loc[(checking_df['transaction_description'].str.contains('venmo')) & (checking_df['transaction_amount'] < 0), 
-                    ['transaction_type_id', 'category_id']] = [2, 20]
-    
-    #Identifies venmo "cashout"
-    checking_df.loc[(checking_df['transaction_description'].str.contains('venmo')) & (checking_df['transaction_amount'] > 0), 
-                    ['transaction_type_id', 'category_id']] = [3, 22]
     
     # Identifies paychecks from employers
     checking_df.loc[(checking_df['transaction_description'].str.contains('gusto|exel')) & (checking_df['transaction_amount'] > 0), 
@@ -236,17 +228,30 @@ def checking_file_cleanup(csv_file):
     checking_df.loc[(checking_df['transaction_description'].str.contains('allstate')) & (checking_df['transaction_amount'] < 0), 
                    ['transaction_type_id', 'category_id']] = [2, 1]
     
-    # Truncate transaction_description at 100 characters
-    checking_df["transaction_description"] = checking_df["transaction_description"].str.slice(0, 100)
+    #Identifies venmo "cashout"
+    checking_df.loc[(checking_df['transaction_description'].str.contains('venmo')) & (checking_df['transaction_amount'] > 0), 
+                    ['transaction_type_id', 'category_id']] = [3, 22]
+    
+    # Identifies venmo payments. These need to be reviewed.
+    mask = ((checking_df['transaction_description'].str.contains('venmo')) & (checking_df['transaction_amount'] < 0))
+    venmo_review = checking_df[mask].reset_index(drop=True)
+    checking_df = checking_df[~mask].reset_index(drop=True)
 
     # Select transactions that have not been assigned a transaction_type_id and category_id for manual review. 
     # Add these transactions to review_df and drop from checking_df
     mask = ((checking_df['transaction_type_id'] == 0) & (checking_df['category_id'] == 0))
     review_df = checking_df[mask].reset_index(drop=True)
     checking_df = checking_df[~mask].reset_index(drop=True)
-
+    
+    # Append venmo_review
+    review_df = pd.concat([review_df, venmo_review])
+    review_df = review_df.reset_index(drop=True)
+    
+    # Truncate transaction_description at 100 characters
+    checking_df["transaction_description"] = checking_df["transaction_description"].str.slice(0, 100)
+    review_df["transaction_description"] = review_df["transaction_description"].str.slice(0, 100)
+    
     # Manually update these transactions
-
     review_df = review_df.reset_index(drop=True)
     print("Transactions successfully transformed."
           "The following transactions need to be reviewed."
