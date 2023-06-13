@@ -1,4 +1,2 @@
-# finances_database
-Personal finance database creation file and ETL scripts
-## Test
-### Test
+# Personal Finance Database and Dashboard
+In this project, I developed a MySQL database tracking all of my financial transactions. This includes purchases, deposits, withdraws, credit card payments, and more. Any transaction that results in a change in a bank account or credit card balance is tracked in this database. These transactions are extracted from my banking website in the form of csv files, transformed using customized Python scripts, and loaded into the database via the sqlalchemy Python libray. I then created SQL views to understand my spending habits and developed a Power BI dashboard linked to the MySQL database to view these habits visually.
