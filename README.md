@@ -69,7 +69,7 @@ To achieve the desired requirements above, I opted to create a dimensional model
 
 ## Database Creation
 
-The creation of the database creation was performed via the "forward engineer" feature of MySQL workbench.
+The creation of the database creation was performed via the "forward engineer" feature of MySQL workbench. To view full creation script view [final_database_creation_script.sql](final_database_creation_script.sql).
 
 ## Loading Data into Dimensional Tables
 
