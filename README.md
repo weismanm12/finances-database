@@ -16,7 +16,7 @@ My primary objective was to create a system that could meticulously monitor ever
 ## Data Modeling
 To achieve the desired requirements above, I opted to create a dimensional model consisting of 4 dimension tables and one fact table as seen below:
 
-![model]()
+![data_model](final_data_model.png)
 
 The "account", "transaction_type", "category", and "date" tables are all dimensional tables, providing more information about each transaction in the transaction_facts table. However, as indicated on the data model, the "category" dimension is optional. This is because only transactions flagged as a transaction type of debit or credit card purchase are marked with a category.
 
