@@ -105,3 +105,17 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- Add check constraint to transaction_facts.category_id requiring credit or debit purchases to have a category
+ALTER TABLE `spend_save`.`transaction_facts`
+ADD CONSTRAINT `check_transaction_category`
+CHECK (
+    (
+        `transaction_type_id` IN (1, 2)
+        AND `category_id` IS NOT NULL
+    )
+    OR
+    (
+        `transaction_type_id` NOT IN (1, 2)
+    )
+);
