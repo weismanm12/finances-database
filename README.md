@@ -28,7 +28,7 @@ The creation of the database creation was performed via the "forward engineer" f
 
 ## Loading Data into Dimensional Tables
 
-Data was loaded into the dimension tables in the form of csv files. TO view this data view the [dimensions_table_data](dimensions_table_data)
+Data was loaded into the dimension tables in the form of csv files. To view this data view the [dimensions_table_data](dimensions_table_data) folder.
 
 ## Transactions Data Cleaning
 
