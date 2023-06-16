@@ -1,0 +1,4 @@
+account_id,account_type,account_description
+1,"credit card","Personal credit card used for most purchases."
+2,checking,"Checking account that receives paychecks, used for purchases via debit card, and is used to make credit card bill payments payments."
+3,saving,"Savings account that generally only receives transfers from checking account. Occassionally, money may be transferred back to checking account."

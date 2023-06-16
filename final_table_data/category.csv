@@ -1,0 +1,16 @@
+category_id,category_description,category_essential
+1,automotive,1
+2,"bills & utilities",1
+3,education,1
+4,entertainment,0
+5,"fees & adjustments",1
+6,"food & drink",0
+7,gas,1
+8,"gifts & donations",0
+9,groceries,1
+10,"health & wellness",1
+11,home,0
+14,personal,0
+15,"professional services",1
+16,shopping,0
+17,travel,0
