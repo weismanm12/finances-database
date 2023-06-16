@@ -32,7 +32,7 @@ Data was loaded into the dimension tables in the form of  files. To view this da
 
 ## Transactions Data Cleaning
 
-Transactions were loaded into the database from all accounts present in `account` dimension table (savings account, checking account, credit card). This account data was manually extracted individually for savings account transactions, checking account transactions, and credit card account transactions from my online banking website in the form of CSV files. This data was then loaded into a Jupyter notebook and each datset was individually transformed with Python. User defined functions were created to streamline this process, only requiring manual review of transactions that could not be accurately processed. To view these functions see the [financial database cleaning functions] (financial_database_functions.py).
+Transactions were loaded into the database from all accounts present in `account` dimension table (savings account, checking account, credit card). This account data was manually extracted individually for savings account transactions, checking account transactions, and credit card account transactions from my online banking website in the form of CSV files. This data was then loaded into a Jupyter notebook and each datset was individually transformed with Python. User defined functions were created to streamline this process, only requiring manual review of transactions that could not be accurately processed. To view these functions see the [financial database cleaning functions](financial_database_functions.py).
 
 I have also performed a sample data transformation for data coming from each data source, view below:
 
