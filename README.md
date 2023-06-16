@@ -3,7 +3,7 @@ In this project, I developed a MySQL database called "spend_save" tracking all o
 
 ## Technologies/Skills
 - SQL (MySQL), MySQL Workbench, Python (NumPy, Pandas, SQLAlchemy), Power BI, DAX
-- Data modeling, database development, data wrangling, data cleaning, ETL, data visualization
+- Data modeling, database development, data wrangling, data cleaning, ETL, data analysis, data visualization/dashboarding
 
 ## Inspiration
 My inspiration for developing a financial database and dashboard stemmed from a desire to gain a deeper understanding of my spending habits. I was motivated by the idea of having a comprehensive tool that would allow me to track and analyze my expenses, giving me valuable insights into my financial patterns. I wanted to effortlessly visualize which categories I spent the most on and observe how my spending habits evolved over time. By creating this database and dashboard, I aimed to empower myself with knowledge and make informed decisions about my finances, ultimately working towards improving my financial well-being
@@ -27,6 +27,8 @@ To gain a better understanding of the schema tables and relationships, check out
 The creation of the database creation was performed via the "forward engineer" feature of MySQL Workbench. Additionally, the check constraint mentioned above was added. To view full creation script view [final database creation script](final_database_creation_script.sql).
 
 ## Loading Data into Dimensional Tables
+
+Data was loaded into the dimension tables in the form of csv files. TO view this data view the [dimensions_table_data](dimensions_table_data)
 
 ## Transactions Data Cleaning
 
