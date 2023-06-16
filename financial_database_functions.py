@@ -45,42 +45,45 @@ def savings_file_cleanup(csv_file):
     # Update transaction_type_id and category_id based on transaction description and amount (positive/negative)
     
     # Identify interest revenue
-    savings_df.loc[savings_df['transaction_description'].str.contains('interest'), ['transaction_type_id', 'category_id']] = [9, 19]
+    savings_df.loc[savings_df['transaction_description'].str.contains('interest'), 
+                   ['transaction_type_id', 'category_id']] = [9, np.nan]
     
     # Identify transfers FROM savings
     savings_df.loc[(savings_df['transaction_description'].str.contains('transfer')) & (savings_df['transaction_amount'] < 0), 
-               ['transaction_type_id', 'category_id']] = [5, 18]
+               ['transaction_type_id', 'category_id']] = [5, np.nan]
     
     # Identify transfers TO savings
     savings_df.loc[(savings_df['transaction_description'].str.contains('transfer')) & (savings_df['transaction_amount'] > 0), 
-               ['transaction_type_id', 'category_id']] = [6, 18]
+               ['transaction_type_id', 'category_id']] = [6, np.nan]
     
     # Identify deposits
     savings_df.loc[(savings_df['transaction_description'].str.contains('deposit')) & (savings_df['transaction_amount'] > 0), 
-               'transaction_type_id'] = 3
+               ['transaction_type_id', 'category_id']] = [3, np.nan]
     
     # Identify withdraws
     savings_df.loc[(savings_df['transaction_description'].str.contains('withdraw')) & (savings_df['transaction_amount'] < 0), 
-               'transaction_type_id'] = 4
+               ['transaction_type_id', 'category_id']] = [4, np.nan]
     
     # Set any non-assigned POSITIVE value transaction_type_id's as deposit
-    savings_df.loc[(savings_df['transaction_type_id'] == 0) & (savings_df['transaction_amount'] > 0), 'transaction_type_id'] = 3
+    savings_df.loc[(savings_df['transaction_type_id'] == 0) & (savings_df['transaction_amount'] > 0), 
+                   ['transaction_type_id', 'category_id']] = [3, np.nan]
     
-    # Set any non-assigned NEGATIVE value transaction_type_id's as deposit
-    savings_df.loc[(savings_df['transaction_type_id'] == 0) & (savings_df['transaction_amount'] < 0), 'transaction_type_id'] = 4
+    # Set any non-assigned NEGATIVE value transaction_type_id's as withdraw
+    savings_df.loc[(savings_df['transaction_type_id'] == 0) & (savings_df['transaction_amount'] < 0), 
+                   ['transaction_type_id', 'category_id']] = [4, np.nan]
     
-    # Set any non-assigned POSITIVE value category_id's as "miscellaneous deposit"
-    savings_df.loc[(savings_df['category_id'] == 0) & (savings_df['transaction_amount'] > 0), 'category_id'] = 25
+#     # Set any non-assigned POSITIVE value category_id's as "miscellaneous deposit"
+#     savings_df.loc[(savings_df['category_id'] == 0) & (savings_df['transaction_amount'] > 0), 'category_id'] = 25
     
-     # Set any non-assigned POSITIVE value category_id's as "miscellaneous withdraw"
-    savings_df.loc[(savings_df['category_id'] == 0) & (savings_df['transaction_amount'] < 0), 'category_id'] = 24
+#      # Set any non-assigned POSITIVE value category_id's as "miscellaneous withdraw"
+#     savings_df.loc[(savings_df['category_id'] == 0) & (savings_df['transaction_amount'] < 0), 'category_id'] = 24
     
     # Truncate transaction_description to match database constraints
     savings_df['transaction_description'] = savings_df['transaction_description'].str.slice(0,100)
     
      # Select transactions that have not been assigned a transaction_type_id and category_id for manual review. 
     # Add these transactions to review_df and drop from checking_df
-    mask = ((savings_df['transaction_type_id'] == 0) & (savings['category_id'] == 0))
+    mask = ((savings_df['transaction_type_id'] == 0) & (savings_df['category_id'] == 0))
     review_df = savings_df[mask].reset_index(drop=True)
     savings_df = savings_df[~mask].reset_index(drop=True)
 
@@ -115,7 +118,7 @@ def to_spend_save(df, data_source, password, database_name="spend_save", table="
     from datetime import date
     
     # Create the connection string for the MySQL database
-    database = 'mysql+pymysql://root:' + password' @localhost/' + database_name
+    database = 'mysql+pymysql://root:' + password + '@localhost/' + database_name
     
     # Create engine
     engine = create_engine(database)
@@ -184,7 +187,7 @@ def checking_file_cleanup(csv_file):
 
     # Identifies transfers to savings and updates transation_type_id and category_id as such
     checking_df.loc[(checking_df['transaction_description'].str.contains('transfer')) & (checking_df['transaction_amount'] > 0), 
-                   ['transaction_type_id', 'category_id']] = [6, 18]
+                   ['transaction_type_id', 'category_id']] = [6, np.nan]
     
     # Identifies transfers from savings and updates transation_type_id and category_id as such
     checking_df.loc[(checking_df['transaction_description'].str.contains('deposit')) & (checking_df['transaction_amount'] > 0), 
@@ -195,34 +198,34 @@ def checking_file_cleanup(csv_file):
     
     # Identifies paychecks from employers
     checking_df.loc[(checking_df['transaction_description'].str.contains('gusto|exel')) & (checking_df['transaction_amount'] > 0), 
-                    ['transaction_type_id', 'category_id']] = [3, 21]
+                    ['transaction_type_id', 'category_id']] = [3, np.nan]
     
     # Identifies credit card payments
     checking_df.loc[(checking_df['transaction_description'].str.contains('pay')) & 
                     (checking_df['transaction_description'].str.contains('chase'))
-                    & (checking_df['transaction_amount'] < 0), ['transaction_type_id', 'category_id']] = [8, 23]
+                    & (checking_df['transaction_amount'] < 0), ['transaction_type_id', 'category_id']] = [8, np.nan]
     
     # Identifies transfers from checking to savings
     checking_df.loc[(checking_df['transaction_description'].str.contains('transfer')) & (checking_df['transaction_amount'] < 0), 
-                   ['transaction_type_id', 'category_id']] = [5, 18]
+                   ['transaction_type_id', 'category_id']] = [5, np.nan]
     
     # Identifies transfers from savings to checking
     checking_df.loc[(checking_df['transaction_description'].str.contains('transfer')) & (checking_df['transaction_amount'] > 0), 
-                   ['transaction_type_id', 'category_id']] = [6, 18]
+                   ['transaction_type_id', 'category_id']] = [6, np.nan]
     
     # Identifies miscellaneous withdraws from checking account
     checking_df.loc[(checking_df['transaction_description'].str.contains('atm')) & (checking_df['transaction_description'].str.contains('chase'))
-                    & (checking_df['transaction_amount'] < 0), ['transaction_type_id', 'category_id']] = [4, 24]
+                    & (checking_df['transaction_amount'] < 0), ['transaction_type_id', 'category_id']] = [4, np.nan]
     
     # Identifies miscellaneous deposits to checking account
     checking_df.loc[(checking_df['transaction_description'].str.contains('atm')) &
                     (checking_df['transaction_description'].str.contains('chase')) &
                     (checking_df['transaction_amount'] > 0),
-                    ['transaction_type_id', 'category_id']] = [3, 25]
+                    ['transaction_type_id', 'category_id']] = [3, np.nan]
 
     # Identifies reimbursements through certify
     checking_df.loc[(checking_df['transaction_description'].str.contains('certify')) & (checking_df['transaction_amount'] > 0), 
-                   ['transaction_type_id', 'category_id']] = [3, 25]
+                   ['transaction_type_id', 'category_id']] = [3, np.nan]
     
     # Identifies insurance payments
     checking_df.loc[(checking_df['transaction_description'].str.contains('allstate')) & (checking_df['transaction_amount'] < 0), 
@@ -230,9 +233,10 @@ def checking_file_cleanup(csv_file):
     
     #Identifies venmo "cashout"
     checking_df.loc[(checking_df['transaction_description'].str.contains('venmo')) & (checking_df['transaction_amount'] > 0), 
-                    ['transaction_type_id', 'category_id']] = [3, 22]
+                    ['transaction_type_id', 'category_id']] = [3, np.nan]
     
     # Identifies venmo payments. These need to be reviewed.
+
     mask = ((checking_df['transaction_description'].str.contains('venmo')) & (checking_df['transaction_amount'] < 0))
     venmo_review = checking_df[mask].reset_index(drop=True)
     checking_df = checking_df[~mask].reset_index(drop=True)
@@ -301,12 +305,13 @@ def query_spend_save(query, password, database_name='spend_save'):
     return df
 
 
-def cc_file_cleanup(csv_file):
+def cc_file_cleanup(spend_save_password, csv_file):
     
     """
     Cleans up a credit card CSV file, performs data transformations, and returns the cleaned dataframes.
 
     Args:
+        spend_save_password (str): Password to spend_save server. Needed to retrieve current categories and category_ids.
         csv_file (str): The path to the credit card CSV file.
 
     Returns:
@@ -329,9 +334,9 @@ def cc_file_cleanup(csv_file):
         ORDER BY category_id
         """)
 
-    category_df = query_spend_save(query)
+    category_df = query_spend_save(query, spend_save_password)
     
-    # Load dataset
+    # Load dataset and drop empty rows
     cc_df = pd.read_csv(csv_file, header=0, index_col=None)
     cc_df.dropna(how='all', inplace=True)
 
@@ -347,7 +352,7 @@ def cc_file_cleanup(csv_file):
                      how='left').drop('category_description', axis=1)
     cc_df['category_id'] = cc_df['category_id'].fillna(0)
     cc_df['category_id'] = cc_df['category_id'].astype(int)
-
+    
     # Reorder columns and drop category column since we now have category_id
     column_names = cc_df.columns.tolist()
     column_names = [column_names[-1]] + column_names[:-1]
@@ -363,27 +368,30 @@ def cc_file_cleanup(csv_file):
     cc_df.loc[cc_df['type'] == 'sale', 'transaction_type_id'] = 1
 
     # Identify credit card payments
-    cc_df.loc[cc_df['type'] == 'payment', ['transaction_type_id', 'category_id']] = [7, 23]
+    cc_df.loc[cc_df['type'] == 'payment', ['transaction_type_id', 'category_id']] = [7, np.nan]
 
     # Identify fees and adjustments
-    cc_df.loc[cc_df['type'].str.contains('fee|adjustment'), ['transaction_type_id', 'category_id']] = [11, 5]
+    cc_df.loc[(cc_df['type'].str.contains('fee|adjustment')) & (cc_df['amount'] < 0),
+                ['transaction_type_id', 'category_id']] = [1, 5]
 
     # Drop "type" column since it is no longer needed
     cc_df = cc_df.drop('type', axis=1)
 
     # Extract the proper columns from MySQL database and rename dataframe columns
-    table_facts = query_spend_save("""
+    query = """
         SHOW columns
         FROM transaction_facts
-        """)
+        """
+    table_facts = query_spend_save(query, spend_save_password)
     column_titles = table_facts['Field'].tolist()[1:]
     cc_df.columns = column_titles
     
     # Truncate transaction_description at 100 characters
     cc_df["transaction_description"] = cc_df["transaction_description"].str.slice(0, 100)
 
-    # Create cc_review_df to manually review any transactions that were not assigned an id or contains NaN values
-    mask = (cc_df['category_id'].isin([0])) | (cc_df['transaction_type_id'].isin([0])) | (cc_df.isna().any(axis=1))
+    # Create cc_review_df to manually review any transactions that were not assigned a category_id (or marked NaN) 
+    # or transaction_type_id
+    mask = (cc_df['category_id'].isin([0])) | (cc_df['transaction_type_id'].isin([0]))
     cc_review_df = cc_df[mask].reset_index(drop=True)
     cc_df = cc_df[~mask].reset_index(drop=True)
     
