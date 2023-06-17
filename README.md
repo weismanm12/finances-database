@@ -28,13 +28,16 @@ The creation of the database creation was performed via the "forward engineer" f
 
 ## Loading Data into Dimensional Tables
 
-Data was loaded into the dimension tables in the form of  files. To view this data, see the [dimensions_table_data](dimensions_table_data) folder.
+Data was loaded into the dimension tables in the form of CSV files. To view this data, see the [dimensions_table_data](dimensions_table_data) folder.
 
 ## Transactions Data Cleaning
 
-Transactions were loaded into the database from all accounts present in `account` dimension table (savings account, checking account, credit card). This account data was manually extracted individually for savings account transactions, checking account transactions, and credit card account transactions from my online banking website in the form of CSV files. This data was then loaded into a Jupyter notebook and each datset was individually transformed with Python. User defined functions were created to streamline this process, only requiring manual review of transactions that could not be accurately processed. To view these functions see [transactions_cleaning_functions.py](transactions_cleaning_functions.py).
+Transactions were loaded into the database from all accounts present in `account` dimension table (savings account, checking account, credit card). This account data was manually extracted individually for savings account transactions, checking account transactions, and credit card account transactions from my online banking website in the form of CSV files. This data was then loaded into a Jupyter Notebook and each datset was individually transformed with Python. User defined functions were created to streamline this process, only requiring manual review of transactions that could not be accurately processed by the Python functions. To view these functions see [transactions_cleaning_functions.py](transactions_cleaning_functions.py).
 
-I have also performed a sample data transformation for data coming from each data source, view below:
+To view a sample of the data cleaning process individually for each account, view the respective Jupyter Notebook linked below:
+  - link1
+  - link2
+  - link3
 
 ## Loading Data into Transactions_Facts Table
 
