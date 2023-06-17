@@ -24,7 +24,7 @@ To gain a better understanding of the schema tables and relationships, check out
 
 ## Database Creation
 
-The creation of the database creation was performed via the "forward engineer" feature of MySQL Workbench. Additionally, the check constraint mentioned above was added. To view full creation script view [final database creation script](final_database_creation_script.sql).
+The creation of the database creation was performed via the "forward engineer" feature of MySQL Workbench. Additionally, the check constraint mentioned above was added. To view full creation script view [final_database_creation_script](final_database_creation_script.sql).
 
 ## Loading Data into Dimensional Tables
 
