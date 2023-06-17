@@ -20,11 +20,11 @@ To achieve the desired requirements above, I opted to create a dimensional model
 
 The `account`, `transaction_type`, `category`, and `date` tables are all dimensional tables, providing more information about each transaction in the transaction_facts table. However, as indicated on the data model, the `category` dimension is optional. This is because only transactions flagged as a transaction type of debit or credit card purchase are marked with a category.
 
-To gain a better understanding of the schema tables and relationships, check out the [data_dictionary](data_dictionary.md).
+To gain a better understanding of the schema tables and relationships, check out the [data_dictionary.csv](data_dictionary.md).
 
 ## Database Creation
 
-The creation of the database creation was performed via the "forward engineer" feature of MySQL Workbench. Additionally, the check constraint mentioned above was added. To view full creation script view [final_database_creation_script](final_database_creation_script.sql).
+The creation of the database creation was performed via the "forward engineer" feature of MySQL Workbench. Additionally, the check constraint mentioned above was added. To view full creation script, view [final_database_creation_script.sql](final_database_creation_script.sql).
 
 ## Loading Data into Dimensional Tables
 
