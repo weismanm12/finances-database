@@ -83,7 +83,8 @@ def savings_file_cleanup(csv_file):
     # Print transactions that need to be manually processed
     print("Transactions successfully transformed."
           "The following transactions need to be reviewed."
-          "Once values have been assigned to transaction_type_id and category_id (or a null category_id), use to_spend_save() to update database.")
+          "Once values have been assigned to transaction_type_id and category_id (or a null category_id)," 
+          "use to_spend_save() to update database.")
     print(review_df)
     
     # Return cleaned data and data to be manually processed as two DataFrames
@@ -130,7 +131,8 @@ def checking_file_cleanup(csv_file):
     checking_df.insert(2, 'transaction_type_id', 0)
     checking_df.insert(3, 'category_id', 0)
 
-    # Next step is to set transaction_type_id and category_id (or null category) based on transaction description and amount (positive/negative)
+    # Next step is to set transaction_type_id and category_id (or null category) based on 
+    # transaction description and amount (positive/negative)
     # Only PURCHASES are to be given a category, the rest are set to NaN
     
     # Identify transfers to savings and set transaction_type_id (no category assigned since this is not a purchase)
@@ -164,8 +166,9 @@ def checking_file_cleanup(csv_file):
                    ['transaction_type_id', 'category_id']] = [6, np.nan]
     
     # Identify miscellaneous withdraws from checking account and set transaction_type_id (no category)
-    checking_df.loc[(checking_df['transaction_description'].str.contains('atm')) & (checking_df['transaction_description'].str.contains('chase'))
-                    & (checking_df['transaction_amount'] < 0), ['transaction_type_id', 'category_id']] = [4, np.nan]
+    checking_df.loc[(checking_df['transaction_description'].str.contains('atm')) &
+                    (checking_df['transaction_description'].str.contains('chase')) &
+                    (checking_df['transaction_amount'] < 0), ['transaction_type_id', 'category_id']] = [4, np.nan]
     
     # Identify miscellaneous deposits to checking account and set transaction_type_id (no category)
     checking_df.loc[(checking_df['transaction_description'].str.contains('atm')) &
@@ -208,7 +211,8 @@ def checking_file_cleanup(csv_file):
     # Print transactions that need to be manually processed
     print("Transactions successfully transformed."
           "The following transactions need to be reviewed."
-          "Once values have been assigned to transaction_type_id and category_id (or a null category_id), use to_spend_save() to update database.")
+          "Once values have been assigned to transaction_type_id and category_id (or a null category_id),"
+          "use to_spend_save() to update database.")
     print(review_df)
     
     # Return cleaned data and data to be manually processed as two DataFrames
@@ -235,13 +239,14 @@ def cc_file_cleanup(spend_save_password, csv_file):
     import pandas as pd
     from sqlalchemy import create_engine
     
-    # Bank automatically marks credit card purchases with a category. These categories need to be assigned to the corresponding category_id to match database schema.
+    # Bank automatically marks credit card purchases with a category. These categories need to be assigned 
+    # to the corresponding category_id to match database schema.
     # The spend_save database will be queried to extract all category_ids and category_descriptions from the category table.
     # This will be saved as a DataFrame and joined to the the DataFrame generated from the checking transactions csv.
     # This will allow us to get all the category_id's for each transaction.
 
     # Connect to database engine
-    engine = create_engine('mysql+pymysql://root:' + password + '@localhost/spend_save')
+    engine = create_engine('mysql+pymysql://root:' + spend_save_password + '@localhost/spend_save')
 
     # SQL query to extract category_id and category_description from spend_save database
     query = ("""
@@ -313,7 +318,8 @@ def cc_file_cleanup(spend_save_password, csv_file):
     cc_df = cc_df.drop('type', axis=1)
 
     # Rename columns to match spend_save database
-    column_titles = ['transaction_id', 'account_id', 'transaction_type_id', 'category_id', 'short_date', 'transaction_description', 'transaction_amount']
+    column_titles = ['account_id', 'transaction_type_id', 'category_id',
+                     'short_date', 'transaction_description', 'transaction_amount']
     cc_df.columns = column_titles
     
     # Truncate transaction_description at 100 characters
