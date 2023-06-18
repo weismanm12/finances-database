@@ -34,7 +34,7 @@ Data was loaded into the dimension tables in the form of CSV files. To view this
 
 Transactions were loaded into the database from all accounts present in `account` dimension table (savings account, checking account, credit card). This account data was manually extracted individually for savings account transactions, checking account transactions, and credit card account transactions from my online banking website in the form of CSV files. This data was then loaded into a Jupyter Notebook and each datset was individually transformed with Python. User defined functions were created to streamline this process, only requiring manual review of transactions that could not be accurately processed by the Python functions. To view these functions see [transactions_cleaning_functions.py](transactions_cleaning_functions.py).
 
-To view a sample of the data cleaning process individually for each account, view the respective Jupyter Notebook linked below:
+To view a input and output of the data cleaning process individually for each account, view the respective Jupyter Notebook linked below:
   - link1
   - link2
   - link3
