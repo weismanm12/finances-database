@@ -1,4 +1,3 @@
-
 def savings_file_cleanup(csv_file):
     """
     Cleans and prepares a CSV file from savings account on Chase website for loading into transaction_facts table.
@@ -10,18 +9,17 @@ def savings_file_cleanup(csv_file):
         tuple: A tuple containing two DataFrames:
             - savings_df: The cleaned and transformed savings account transactions Dataframe.
             - review_df: The DataFrame containing transactions that need manual review for assignment of
-              transaction_type_id and category_id.
+                         transaction_type_id and category_id.
     """
     
     import numpy as np
     import pandas as pd
     
     # Read the CSV file into a DataFrame
-    savings_df = pd.read_csv(csv_file, index_col=None)
+    savings_df = pd.read_csv(csv_file, encoding = 'unicode_escape', index_col=False)
     
-    # Reset the index of the DataFrame and unecessary columns
-    #savings_df = savings_df.reset_index(drop=True)
-    # savings_df = savings_df.drop(['details', 'type', 'balance', 'Check or Slip #'], axis=1)
+    # Drop unecessary columns
+    savings_df = savings_df.drop(['Details', 'Type', 'Balance', 'Check or Slip #'], axis=1)
     
     # Convert all string values to lowercase in the DataFrame
     savings_df = savings_df.applymap(lambda x: x.lower() if isinstance(x, str) else x)
@@ -29,9 +27,9 @@ def savings_file_cleanup(csv_file):
     
     # Insert needed columns. 
     # Add account_id # "3" to reference "savings account" as the account and initialize other columns with "0" value to be updated later
-    savings_df.insert(1, 'account_id', 3)
-    savings_df.insert(2, 'transaction_type_id', 0)
-    savings_df.insert(3, 'category_id', 0)
+    savings_df.insert(0, 'account_id', 3)
+    savings_df.insert(1, 'transaction_type_id', 0)
+    savings_df.insert(2, 'category_id', 0)
     
     # Rename columns in the DataFrame to match database
     savings_df = savings_df.rename(columns={'posting date': 'short_date', 'description': 'transaction_description', 
@@ -102,14 +100,14 @@ def checking_file_cleanup(csv_file):
         tuple: A tuple containing two DataFrames:
             - checking_df: The cleaned and transformed checking account transactions Dataframe.
             - review_df: The DataFrame containing transactions that need manual review for assignment of
-              transaction_type_id and category_id.
+                         transaction_type_id and category_id.
     """
     
     import numpy as np
     import pandas as pd
     
     # Read the csv file into a DataFrame
-    checking_df = pd.read_csv(csv_file, index_col=None)
+    checking_df = pd.read_csv(csv_file, encoding = 'unicode_escape', index_col=False)
     
     # Convert all string values to lowercase in the DataFrame
     checking_df = checking_df.applymap(lambda x: x.lower() if isinstance(x, str) else x)
@@ -130,7 +128,9 @@ def checking_file_cleanup(csv_file):
     checking_df.insert(1, 'account_id', 2)
     checking_df.insert(2, 'transaction_type_id', 0)
     checking_df.insert(3, 'category_id', 0)
-
+    
+    # Convert category_id to int64, since this column contains null values and cannot be given a standard int data type
+    checking_df['category_id'] = checking_df['category_id'].fillna(0).astype('Int64')
     # Next step is to set transaction_type_id and category_id (or null category) based on 
     # transaction description and amount (positive/negative)
     # Only PURCHASES are to be given a category, the rest are set to NaN
@@ -201,12 +201,12 @@ def checking_file_cleanup(csv_file):
     checking_df = checking_df[~mask].reset_index(drop=True)
     
     # Append venmo_review_df to review_df
-    review_df = pd.concat([review_df, venmo_review])
+    review_df = pd.concat([review_df, venmo_review_df])
     review_df = review_df.reset_index(drop=True)
     
     # Truncate transaction_description at 100 characters to meet requirements of spend_save database
     checking_df["transaction_description"] = checking_df["transaction_description"].str.slice(0, 100)
-    review_df_df["transaction_description"] = review_df["transaction_description"].str.slice(0, 100)
+    review_df["transaction_description"] = review_df["transaction_description"].str.slice(0, 100)
     
     # Print transactions that need to be manually processed
     print("Transactions successfully transformed."
@@ -220,19 +220,19 @@ def checking_file_cleanup(csv_file):
 
 
 def cc_file_cleanup(spend_save_password, csv_file):
-    
     """
-    Cleans up a credit card CSV file, performs data transformations, and returns the cleaned dataframes.
+    Cleans up a credit card transactions, performs data transformations, and returns the cleaned dataframes.
 
     Args:
-        spend_save_password (str): Password to spend_save server. Needed to retrieve current categories and category_ids.
-        csv_file (str): The path to the credit card CSV file.
+        spend_save_password (str): Password to spend_save server. Needed to retrieve categories and category_ids 
+                                   from database.
+        csv_file (str): input credit card transactions as CSV.
 
     Returns:
         tuple: A tuple containing two pandas DataFrames:
             - cc_df: The cleaned and transformed credit card transactions DataFrame.
             - cc_review_df: The DataFrame containing transactions that need manual review for assignment of
-              transaction_type_id and category_id.
+                            transaction_type_id and category_id.
     """
     
     import numpy as np
@@ -272,7 +272,7 @@ def cc_file_cleanup(spend_save_password, csv_file):
     engine.dispose()
     
     # Load credit card transactions from csv AS "cc_df" and drop empty rows that may be present at bottom of csv
-    cc_df = pd.read_csv(csv_file, header=0, index_col=None)
+    cc_df = pd.read_csv(csv_file, encoding = 'unicode_escape', index_col=None)
     cc_df.dropna(how='all', inplace=True)
 
     # Casefold all letters in dataset/column titles drop irrelevant columns, and convert date column to datetime
@@ -339,3 +339,49 @@ def cc_file_cleanup(spend_save_password, csv_file):
     
     # Return cleaned data and data to be manually processed as two DataFrames
     return cc_df, cc_review_df
+
+
+def to_spend_save(df, data_source, password):
+    """
+    Loads a DataFrame into a MySQL database and saves it as a CSV file.
+
+    Args:
+        df (pandas.DataFrame): The DataFrame containing the data to be loaded.
+        data_source (str): The source of the data.
+        password (str): The password to the MySQL database server.
+        
+    Returns:
+        None
+    """
+
+    import numpy as np
+    import pandas as pd
+    from sqlalchemy import create_engine
+    from datetime import date
+    
+    # Create the connection string for the MySQL database
+    database = 'mysql+pymysql://root:' + password + '@localhost/spend_save'
+    
+    # Create engine
+    engine = create_engine(database)
+
+    # Connect to MySQL database using engine
+    conn = engine.connect()
+
+    # Import data from Pandas DataFrame to MySQL database
+    df.to_sql('transaction_facts', con=conn, if_exists='append', index=False)
+
+    # Commit the transaction
+    conn.execute('commit')
+
+    # Close connection
+    conn.close()
+    
+    # Generate the file name to save as CSV using data_source and current_date()
+    current_date = date.today()
+    file_name = f"{data_source}_{current_date}.csv"
+    
+    # Save the DataFrame as a CSV file
+    df.to_csv(file_name)
+    print(f"{data_source} data successfully loaded into spend_save MySQL database")
+    print(f"CSV file saved as {data_source}_{current_date}.csv")
