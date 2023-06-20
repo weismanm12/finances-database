@@ -272,7 +272,7 @@ def cc_file_cleanup(spend_save_password, csv_file):
     engine.dispose()
     
     # Load credit card transactions from csv AS "cc_df" and drop empty rows that may be present at bottom of csv
-    cc_df = pd.read_csv(csv_file, encoding = 'unicode_escape', index_col=None)
+    cc_df = pd.read_csv(csv_file, encoding = 'unicode_escape', index_col=False)
     cc_df.dropna(how='all', inplace=True)
 
     # Casefold all letters in dataset/column titles drop irrelevant columns, and convert date column to datetime
