@@ -39,7 +39,20 @@ To view an example of processing transactions each account, view the respective 
   - [Checking transactions processing](transactions_processing/checking_processing_example.ipynb)
   - [Credit card transactions processing](transactions_processing/cc_processing_example.ipynb)
 
+Note: This data comes from my actual May banking data, however, this data and all data in the database/dashboard has been altered (changed transaction dates, descriptions, amounts, etc.) for privacy reasons.
+
+---
+
 ## Database Views Creation
+
+After creating the spend_save database, I wanted to write some queries to extract insights from my spending/saving trends. I wanted to view information such monthly spending, categorical, and fluctuations in account balances. Since this is information I regularly wanted to view, I opted to create database views to have easy access to this information.
+
+Descriptions and samples of these views can be seen below:
+  - [Link1]
+  - [Link2]
+  - [Link3]
+  - [Link4]
+  - [Link5]
 
 ## Power BI Dashboard
 
