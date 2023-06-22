@@ -32,7 +32,7 @@ JOIN date AS d
 WHERE d.year != '2022'
 GROUP BY month, d.month_number, d.year
 ORDER BY d.year, d.month_number;
--- ------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------
 # Shows and ranks amount spent per category per month
 CREATE VIEW monthly_spend_category AS
 SELECT
@@ -58,7 +58,7 @@ JOIN date AS d
 WHERE d.year != '2022'
 GROUP BY month_number, month_name, year, category_description
 ORDER BY year, month_number, month_ranking;
--- ------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------
 # Shows all transactions and the yearly running total spent
 CREATE VIEW daily_spend AS
 SELECT 
@@ -84,7 +84,7 @@ WHERE d.short_date <= CURDATE()
 	AND (t.transaction_type_id IN (1, 2) OR t.transaction_type_id IS NULL)
 	AND year != '2022'
 ORDER BY short_date;
--- ------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------
 # View created to run visual on Power BI dashboard. Calculates running total spent for each category (daily level of granularity) 
 CREATE VIEW daily_category_balance AS
 WITH date_category AS (
@@ -119,7 +119,7 @@ WHERE EXTRACT(year FROM dc.short_date) != '2022'
 	AND (t.transaction_type_id IN (1, 2) OR t.transaction_type_id IS NULL)
 GROUP BY dc.short_date, dc.category_id
 ORDER BY dc.short_date, dc.category_id;
--- ------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------
 -- Calculates balances of all accounts at the end of each month
 CREATE VIEW monthly_account_balances AS
 SELECT
