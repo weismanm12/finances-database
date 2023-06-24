@@ -48,7 +48,9 @@ Note: This data comes from my actual May banking data, however, this data and al
 After creating the spend_save database, I wanted to write some queries to extract insights from my spending/saving trends. I wanted to view information such monthly spending, categorical, and fluctuations in account balances. Since this is information I regularly wanted to view, I opted to create database views to have easy access to this information. To see the SQL code of how these views were created and sample outputs, see the [database views overview](database_views/views_overview.ipynb).
 
 ## Power BI Dashboard
-In addition to the database views, I wanted to have a way to visualize my spending habbits. I opted to create a Power BI dashboard to do so. I imported all tables from the spend_save database as well as one view created in the step above. See the data model for the dashboard below:
+In addition to the database views, I wanted to have a way to visualize my spending habbits. I opted to create a Power BI dashboard to do so. I imported all tables from the spend_save database as well as one view created in the step above. See a picture of the dashboard below with annotations describing each visual:
+
+
 
 
 
