@@ -16,23 +16,23 @@ My primary objective was to create a system that could meticulously monitor ever
 ## Data Modeling
 To achieve the desired requirements above, I opted to create a dimensional model consisting of 4 dimension tables and one fact table as seen below:
 
-![data_model](final_data_model.png)
+![data model](final_data_model.png)
 
 The `account`, `transaction_type`, `category`, and `date` tables are all dimensional tables, providing more information about each transaction in the transaction_facts table. However, as indicated on the data model, the `category` dimension is optional. This is because only transactions flagged as a transaction type of debit or credit card purchase are marked with a category.
 
-To gain a better understanding of the schema tables and relationships, check out the [data_dictionary.csv](data_dictionary.md).
+To gain a better understanding of the schema tables and relationships, check out the [data dictionary](data_dictionary.md).
 
 ## Database Creation
 
-The creation of the database creation was performed via the "forward engineer" feature of MySQL Workbench. Additionally, the check constraint mentioned above was added. To view full creation script, view [final_database_creation_script.sql](final_database_creation_script.sql).
+The creation of the database creation was performed via the "forward engineer" feature of MySQL Workbench. Additionally, the check constraint mentioned above was added. To view full creation script, view [final database creation script](final_database_creation_script.sql).
 
 ## Loading Data into Dimensional Tables
 
-Data was loaded into the dimension tables in the form of CSV files. To view this data, see the [dimensions_table_data](dimensions_table_data) folder.
+Data was loaded into the dimension tables in the form of CSV files. To view this data, see the [dimensions table data](dimensions_table_data) folder.
 
 ## Transactions Processing and Loading into transactions_facts
 
-Transactions were loaded into the database from all accounts present in `account` dimension table (savings account, checking account, credit card). This account data was manually extracted individually for savings account transactions, checking account transactions, and credit card account transactions from my online banking website in the form of CSV files. This data was then loaded into a Jupyter Notebook and each datset was individually transformed with Python. User defined functions were created to streamline this process, only requiring manual review of transactions that could not be accurately processed by the Python functions. To view these functions see [transactions_processing_functions.py](transactions_processing/transactions_processing_functions).
+Transactions were loaded into the database from all accounts present in `account` dimension table (savings account, checking account, credit card). This account data was manually extracted individually for savings account transactions, checking account transactions, and credit card account transactions from my online banking website in the form of CSV files. This data was then loaded into a Jupyter Notebook and each datset was individually transformed with Python. User defined functions were created to streamline this process, only requiring manual review of transactions that could not be accurately processed by the Python functions. To view these functions see the [transactions processing functions](transactions_processing/transactions_processing_functions.py).
 
 To view an example of processing transactions each account, view the respective Jupyter Notebook linked below:
   - [Savings transactions processing](transactions_processing/savings_processing_example.ipynb)
