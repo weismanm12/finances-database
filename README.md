@@ -48,10 +48,12 @@ Note: This data comes from my actual May banking data, however, this data and al
 After creating the spend_save database, I wanted to write some queries to extract insights from my spending/saving trends. I wanted to view information such monthly spending, categorical, and fluctuations in account balances. Since this is information I regularly wanted to view, I opted to create database views to have easy access to this information. To see the SQL code of how these views were created and sample outputs, see the [database views overview](database_views/views_overview.ipynb).
 
 ## Power BI Dashboard
-In addition to the database views, I wanted to have a way to visualize my spending habbits. I opted to create a Power BI dashboard to do so. I imported all tables from the spend_save database as well as one view created in the step above. See a picture of the dashboard below with annotations describing each visual:
+In addition to the database views, I wanted to have a way to visualize my spending habbits. I opted to create a Power BI dashboard to do so. I imported all tables from the spend_save database as well as one view created in the step above. To view the data model for the dashboard, see the [dashboard data model](dashboard/dashboard_model.png). See a picture of the dashboard below with annotations describing each visual:
 
 ![dashboard_picture_annotated](dashboard/dashboard_picture_annotated.png)
 
+The data in this dashboard has been altered to make the amounts spent innaccurate. However, the proportions spent for each category are still accurate. 
 
+With that being said, it can be seen that the majority of my spending through the first six months of 2023 has been on non-essential items, most noteably food & drink, which including eating at restaurants. This is useful information, as I always knew that I spent a lot on eating out, but I did not realize the extent to which I was. Additionally, it can be seen that my highest spending months were in the colder, winter/early spring months of January, February, and March, which I would have not expected.
 
-## Future Improvements
+Overall, this dashboard and database is a great way for me to keep track of my finances. It has allowed me to keep track of my spending and identify areas of improvement, allowing me to strengthen my personal financial position.
