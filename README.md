@@ -1,24 +1,24 @@
 # Personal Finance Database and Dashboard
-In this project, I developed a MySQL database called "spend_save" tracking all of my financial transactions. This includes purchases, deposits, withdraws, credit card payments, and more. Any transaction that results in a change in a bank account or credit card balance is tracked in this database. These transactions are extracted from my banking website in the form of CSV files, transformed using customized Python scripts, and loaded into the database via the sqlalchemy Python library. I then created SQL views to understand my spending habits and developed a Power BI dashboard linked to the MySQL database to view these habits visually.
+In this project, I developed a MySQL database called "spend_save" tracking all of my financial transactions. This includes purchases, deposits, withdraws, credit card payments, and more. Any transaction that results in a change in a bank account or credit card balance is tracked in this database. These transactions are extracted from my banking website in the form of CSV files, transformed using customized Python scripts, and loaded into the database via the sqlalchemy Python library. I then created SQL views to understand my spending habits and developed a Power BI dashboard linked to the database to view these habits visually.
 
 ## Technologies/Skills
 - SQL (MySQL), MySQL Workbench, Python (NumPy, Pandas, SQLAlchemy), Power BI, DAX
 - Data modeling, database development, data wrangling, data cleaning, ETL, data analysis, data visualization/dashboarding
 
 ## Inspiration
-My inspiration for developing a financial database and dashboard stemmed from a desire to gain a deeper understanding of my spending habits. I was motivated by the idea of having a comprehensive tool that would allow me to track and analyze my expenses, giving me valuable insights into my financial patterns. I wanted to effortlessly visualize which categories I spent the most on and observe how my spending habits evolved over time. By creating this database and dashboard, I aimed to empower myself with knowledge and make informed decisions about my finances, ultimately working towards improving my financial well-being.
+I wanted to know more about my spending habits. I had an idea of which categories I spent the most on, but I did not know exactly how much I was spending. I also wanted to have a way to track my spending habits over time, allowing me to see which months of the year I tend to spend the most money in. To a lesser degree, I also wanted to track my bank account balances over time.
 
 ---
 
 ## Identifying Requirements 
-My primary objective was to create a system that could meticulously monitor every transaction flowing through my bank and credit card accounts. I aimed to capture crucial details such as transaction categories, transaction types (credit card purchases, paychecks, credit card bill payments, etc.), and transaction dates. It was imperative for me to have a comprehensive view of all my financial activities, enabling me to gain a profound understanding of my monetary flow and make informed decisions based on this valuable information.
+My primary objective was to create a system that could meticulously monitor every transaction flowing through my bank and credit card accounts. I aimed to capture crucial details such as transaction categories, transaction types (credit card purchases, paychecks, credit card bill payments, etc.), and transaction dates. To do so, I needed to extract data on the __transaction level__ from my bank and credit card accounts.
 
 ## Data Modeling
 To achieve the desired requirements above, I opted to create a dimensional model consisting of 4 dimension tables and one fact table as seen below:
 
 ![data model](final_data_model.png)
 
-The `account`, `transaction_type`, `category`, and `date` tables are all dimensional tables, providing more information about each transaction in the transaction_facts table. However, as indicated on the data model, the `category` dimension is optional. This is because only transactions flagged as a transaction type of debit or credit card purchase are marked with a category.
+The `account`, `transaction_type`, `category`, and `date` tables are all dimensional tables, providing more information about each transaction in the transaction_facts table. However, as indicated on the data model, the `category` dimension is optional. This is because only transactions flagged as a transaction type of debit or credit card purchase are marked with a category and is enforced via a check constraint.
 
 To gain a better understanding of the schema tables and relationships, check out the [data dictionary](data_dictionary.md).
 
@@ -32,28 +32,28 @@ Data was loaded into the dimension tables in the form of CSV files. To view this
 
 ## Transactions Processing and Loading into transactions_facts
 
-Transactions were loaded into the database from all accounts present in `account` dimension table (savings account, checking account, credit card). This account data was manually extracted individually for savings account transactions, checking account transactions, and credit card account transactions from my online banking website in the form of CSV files. This data was then loaded into a Jupyter Notebook and each datset was individually transformed with Python. User defined functions were created to streamline this process, only requiring manual review of transactions that could not be accurately processed by the Python functions. To view these functions see the [transactions processing functions](transactions_processing/transactions_processing_functions.py).
+The transactions were loaded into the database from various accounts listed in the account dimension table, including savings accounts, checking accounts, and credit cards. I extracted the account data manually from my online banking website as separate CSV files for each type of account. Afterward, I imported the data into a Jupyter Notebook and applied individual transformations via Python to each dataset. I created custom functions to automate most of this process, minimizing the need for manual intervention. In cases where the Python functions could not process transactions accurately, I reviewed them manually. You can find the functions used for transaction processing in the [transactions processing functions](transactions_processing/transactions_processing_functions.py).
 
 To view an example of processing transactions each account, view the respective Jupyter Notebook linked below:
   - [Savings transactions processing](transactions_processing/savings_processing_example.ipynb)
   - [Checking transactions processing](transactions_processing/checking_processing_example.ipynb)
   - [Credit card transactions processing](transactions_processing/cc_processing_example.ipynb)
 
-Note: This data comes from my actual May banking data, however, this data and all data in the database/dashboard has been altered (changed transaction dates, descriptions, amounts, etc.) for privacy reasons.
+Please note that the data presented here is based on my real banking data from May. However, for privacy reasons, all the information in the database and dashboard has been modified, including transaction dates, descriptions, amounts, and other relevant details.
 
 ---
 
-## Database Views Creation
+## SQL Analysis and Database Views Creation
 
-After creating the spend_save database, I wanted to write some queries to extract insights from my spending/saving trends. I wanted to view information such monthly spending, categorical, and fluctuations in account balances. Since this is information I regularly wanted to view, I opted to create database views to have easy access to this information. To see the SQL code of how these views were created and sample outputs, see the [database views overview](database_views/views_overview.ipynb).
+Once I had set up the spend_save database, my next goal was to generate queries that could provide me with insights into my spending and saving patterns. I wanted to examine monthly expenses, categorical spending amounts, and observe fluctuations in my account balances/spending. Since I needed to access this information frequently, I decided to create database views for convenient and quick access. To see the SQL code of how these views were created and sample outputs, see the [database views overview](database_views/views_overview.ipynb).
 
 ## Power BI Dashboard
-In addition to the database views, I wanted to have a way to visualize my spending habbits. I opted to create a Power BI dashboard to do so. I imported all tables from the spend_save database as well as one view created in the step above. To view the data model for the dashboard, see the [dashboard data model](dashboard/dashboard_model.png). See a picture of the dashboard below with annotations describing each visual:
+In addition to the database views, I wanted a visual representation of my spending habits. I chose to create a Power BI dashboard for this purpose. I imported all the tables from the spend_save database, along with one view created in the previous step. To view the data model for the dashboard, see the [dashboard data model](dashboard/dashboard_model.png). The annotated picture below provides an overview of the dashboard with descriptions for each visual:
 
 ![dashboard_picture_annotated](dashboard/dashboard_picture_annotated.png)
 
-The data in this dashboard has been altered to make the amounts spent innaccurate. However, the proportions spent for each category are still accurate. 
+Please note that the data displayed in this dashboard has been altered to render inaccurate spending amounts. However, the proportions spent in each category remain accurate.
 
-With that being said, it can be seen that the majority of my spending through the first six months of 2023 has been on non-essential items, most noteably food & drink, which including eating at restaurants. This is useful information, as I always knew that I spent a lot on eating out, but I did not realize the extent to which I was. Additionally, it can be seen that my highest spending months were in the colder, winter/early spring months of January, February, and March, which I would have not expected.
+From the dashboard, it is evident that a significant portion of my expenses during the first six months of 2023 was attributed to non-essential items, particularly food & drink, including dining out at restaurants. This information is eye-opening, as I was aware of my tendency to spend on dining out but underestimated the extent of it. Furthermore, the highest expenditure months were observed in the colder months of January, February, and March, which was unexpected.
 
-Overall, this dashboard and database is a great way for me to keep track of my finances. It has allowed me to keep track of my spending and identify areas of improvement, allowing me to strengthen my personal financial position.
+Overall, this dashboard and database serve as valuable tools for effectively monitoring my finances. The two tools enable me to track my spending, identify areas where I can make improvements, and ultimately strengthen my personal financial position.
