@@ -50,7 +50,7 @@ Once I had set up the spend_save database, my next goal was to generate queries 
 ## Power BI Dashboard
 In addition to the database views, I wanted a visual representation of my spending habits. I chose to create a Power BI dashboard for this purpose. I imported all the tables from the spend_save database, along with one view created in the previous step. To view the data model for the dashboard, see the [dashboard data model](dashboard/dashboard_model.png). The annotated picture below provides an overview of the dashboard with descriptions for each visual:
 
-![dashboard_picture_annotated](dashboard/dashboard_picture_annotated.png)
+![dashboard_picture_annotated](dashboard/dashboard_annotated.png)
 
 Please note that the data displayed in this dashboard has been altered to render inaccurate spending amounts. However, the proportions spent in each category remain accurate.
 
