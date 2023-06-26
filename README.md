@@ -34,7 +34,7 @@ Data was loaded into the dimension tables in the form of CSV files. To view this
 
 The transactions were loaded into the database from various accounts listed in the account dimension table, including savings accounts, checking accounts, and credit cards. I extracted the account data manually from my online banking website as separate CSV files for each type of account. Afterward, I imported the data into a Jupyter Notebook and applied individual transformations via Python to each dataset. I created custom functions to automate most of this process, minimizing the need for manual intervention. In cases where the Python functions could not process transactions accurately, I reviewed them manually. You can find the functions used for transaction processing in the [transactions processing functions](transactions_processing/transactions_processing_functions.py).
 
-To view an example of processing transactions each account, view the respective Jupyter Notebook linked below:
+To view an example of processing transactions for each account, view the respective Jupyter Notebook linked below:
   - [Savings transactions processing](transactions_processing/savings_processing_example.ipynb)
   - [Checking transactions processing](transactions_processing/checking_processing_example.ipynb)
   - [Credit card transactions processing](transactions_processing/cc_processing_example.ipynb)
