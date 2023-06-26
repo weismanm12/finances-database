@@ -50,7 +50,7 @@ After creating the spend_save database, I wanted to write some queries to extrac
 ## Power BI Dashboard
 In addition to the database views, I wanted to have a way to visualize my spending habbits. I opted to create a Power BI dashboard to do so. I imported all tables from the spend_save database as well as one view created in the step above. See a picture of the dashboard below with annotations describing each visual:
 
-
+![dashboard_picture_annotated](dashboard/dashboard_picture_annotated.png)
 
 
 
