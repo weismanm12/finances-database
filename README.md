@@ -16,15 +16,15 @@ My primary objective was to create a system that could meticulously monitor ever
 ## Data Modeling
 To achieve the desired requirements above, I opted to create a dimensional model consisting of 4 dimension tables and one fact table as seen below:
 
-![data model](final_data_model.png)
+![data model](database_creation/final_data_model.png)
 
 The `account`, `transaction_type`, `category`, and `date` tables are all dimensional tables, providing more information about each transaction in the transaction_facts table. However, as indicated on the data model, the `category` dimension is optional. This is because only transactions flagged as a transaction type of debit or credit card purchase are marked with a category and is enforced via a check constraint.
 
-To gain a better understanding of the schema tables and relationships, check out the [data dictionary](data_dictionary.md).
+To gain a better understanding of the schema tables and relationships, check out the [database_creation/data dictionary](data_dictionary.md).
 
 ## Database Creation
 
-The creation of the database creation was performed via the "forward engineer" feature of MySQL Workbench. Additionally, the check constraint mentioned above was added. To view full creation script, view [final database creation script](final_database_creation_script.sql).
+The creation of the database creation was performed via the "forward engineer" feature of MySQL Workbench. Additionally, the check constraint mentioned above was added. To view full creation script, view [final database creation script](database_creation/final_database_creation_script.sql).
 
 ## Loading Data into Dimensional Tables
 
