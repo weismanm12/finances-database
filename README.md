@@ -54,6 +54,8 @@ In addition to the database views, I wanted a visual representation of my spendi
 
 Please note that the data displayed in this dashboard has been altered to render inaccurate spending amounts. However, the proportions spent in each category remain accurate.
 
+[Click here if you would like to see the interactiv dashboard,](https://app.powerbi.com/view?r=eyJrIjoiOThlZWM3YjMtODZhNy00MTIwLWIzMjAtMTBlMjUzNTczMGQwIiwidCI6IjVmODc4N2Q0LThkNmYtNGI1ZC1hNWY4LTM3MzI0YWFhZDYwMSJ9)
+
 From the dashboard, it is evident that a significant portion of my expenses during the first six months of 2023 was attributed to non-essential items, particularly food & drink, including dining out at restaurants. This information is eye-opening, as I was aware of my tendency to spend on dining out but underestimated the extent of it. Furthermore, the highest expenditure months were observed in the colder months of January, February, and March, which was unexpected.
 
 Overall, this dashboard and database serve as valuable tools for effectively monitoring my finances. The two tools enable me to track my spending, identify areas where I can make improvements, and ultimately strengthen my personal financial position.
