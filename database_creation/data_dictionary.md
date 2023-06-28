@@ -1,7 +1,7 @@
 # Data Dictionary
 
 ## Schema
-![model](final_data_model.png)
+![model](data_model.png)
 
 ## Table Descriptions
 
