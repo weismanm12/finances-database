@@ -131,9 +131,10 @@ def checking_file_cleanup(csv_file):
     
     # Convert category_id to int64, since this column contains null values and cannot be given a standard int data type
     checking_df['category_id'] = checking_df['category_id'].fillna(0).astype('Int64')
+    
     # Next step is to set transaction_type_id and category_id (or null category) based on 
     # transaction description and amount (positive/negative)
-    # Only PURCHASES are to be given a category, the rest are set to NaN
+    # Only PURCHASES are to be given a category, the rest are set to null
     
     # Identify transfers to savings and set transaction_type_id (no category assigned since this is not a purchase)
     checking_df.loc[(checking_df['transaction_description'].str.contains('transfer')) & (checking_df['transaction_amount'] > 0),
