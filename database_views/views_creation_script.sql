@@ -99,8 +99,8 @@ WITH date_category AS (
 )
 SELECT 
 	dc.short_date,
-    dc.category_id,
-    COALESCE(SUM(ABS(tf.transaction_amount)), 0) AS day_sum		-- Categorical spending each day.
+	dc.category_id,
+	COALESCE(SUM(ABS(tf.transaction_amount)), 0) AS day_sum,		-- Categorical spending each day. Zero if none on a given day day
 FROM date_category AS dc
 LEFT JOIN transaction_facts AS tf
 	ON dc.short_date = tf.short_date
