@@ -20,7 +20,7 @@ To achieve the desired requirements above, I opted to create a dimensional model
 
 The `account`, `transaction_type`, `category`, and `date` tables are all dimensional tables, providing more information about each transaction in the transaction_facts table. However, as indicated on the data model, the `category` dimension is optional. This is because only transactions flagged as a transaction type of debit or credit card purchase are marked with a category and is enforced via a check constraint.
 
-To gain a better understanding of the schema tables and relationships, check out the [database_creation](data dictionary/data_dictionary.md).
+To gain a better understanding of the schema tables and relationships, check out the [data dictionary](database_creation/data_dictionary.md).
 
 ## Database Creation
 
