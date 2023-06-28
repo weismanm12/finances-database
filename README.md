@@ -11,7 +11,7 @@ I wanted to know more about my spending habits. I had an idea of which categorie
 ---
 
 ## Identifying Requirements 
-My primary objective was to create a system that could meticulously monitor every transaction flowing through my bank and credit card accounts. I aimed to capture crucial details such as transaction categories, transaction types (credit card purchases, paychecks, credit card bill payments, etc.), and transaction dates. To do so, I needed to extract data on the __transaction level__ from my bank and credit card accounts.
+My primary objective was to create a system that could meticulously monitor every transaction flowing through my bank and credit card accounts. I aimed to capture details such as transaction categories, transaction types (credit card purchases, paychecks, credit card bill payments, etc.), and transaction dates. To do so, I needed to extract data at the transaction level from my bank and credit card accounts.
 
 ## Data Modeling
 To achieve the desired requirements above, I opted to create a dimensional model consisting of 4 dimension tables and one fact table as seen below:
@@ -39,13 +39,13 @@ To view an example of processing transactions for each account, view the respect
   - [Checking transactions processing](transactions_processing/checking_processing_example.ipynb)
   - [Credit card transactions processing](transactions_processing/cc_processing_example.ipynb)
 
-Please note that the data presented here is based on my real banking data from May. However, for privacy reasons, all the information in the database and dashboard has been modified, including transaction dates, descriptions, amounts, and other relevant details.
+Please note that for privacy reasons, all the information here and in the database/dashboard has been modified, including transaction dates, descriptions, amounts, and other relevant details.
 
 ---
 
 ## SQL Analysis and Database Views Creation
 
-Once I had set up the spend_save database, my next goal was to generate queries that could provide me with insights into my spending and saving patterns. I wanted to examine monthly expenses, categorical spending amounts, and observe fluctuations in my account balances/spending. Since I needed to access this information frequently, I decided to create database views for convenient and quick access. To see the SQL code of how these views were created and sample outputs, see the [database views overview](database_views/views_overview.ipynb).
+Once I had set up the spend_save database, my next goal was to generate queries that could provide me with insights into my spending and saving patterns. I wanted to examine monthly expenses, categorical spending amounts, and observe fluctuations in my account balances/spending. Since I wanted to access this information frequently, I decided to create database views for convenient and quick access. To see the SQL code of how these views were created and sample outputs, see the [database views overview](database_views/views_overview.ipynb).
 
 ## Power BI Dashboard
 In addition to the database views, I wanted a visual representation of my spending habits. I chose to create a Power BI dashboard for this purpose. I imported all the tables from the spend_save database, along with one view created in the previous step. To view the data model for the dashboard, see the [dashboard data model](dashboard/dashboard_model.md). The annotated picture below provides an overview of the dashboard with descriptions for each visual:
@@ -55,6 +55,6 @@ Please note that the data displayed in this dashboard has been altered to render
 
 [__Click here if you would like to view the interactive dashboard__](https://app.powerbi.com/view?r=eyJrIjoiMjkyNjBlYzMtMDMwMi00MWU1LWExMGItNDMyNzYzZTgyNzkyIiwidCI6IjVmODc4N2Q0LThkNmYtNGI1ZC1hNWY4LTM3MzI0YWFhZDYwMSJ9)
 
-From the dashboard, it is evident that a significant portion of my expenses during the first six months of 2023 was attributed to non-essential items, particularly food & drink, including dining out at restaurants. This information is eye-opening, as I was aware of my tendency to spend on dining out but underestimated the extent of it. Furthermore, the highest expenditure months were observed in the colder months of January, February, and March, which was unexpected.
+From the dashboard, it is evident that a significant portion of my expenses during the first six months of 2023 was attributed to non-essential items, particularly food & drink (which primary consists of dining out at restaurants). This information is eye-opening, as I was aware of my tendency to spend on dining out but underestimated the extent of it. Furthermore, the highest expenditure months were observed in the colder months of January, February, and March, which was unexpected.
 
 Overall, this dashboard and database serve as valuable tools for effectively monitoring my finances. The two tools enable me to track my spending, identify areas where I can make improvements, and ultimately strengthen my personal financial position.
