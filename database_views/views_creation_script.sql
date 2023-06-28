@@ -100,11 +100,7 @@ WITH date_category AS (
 SELECT 
 	dc.short_date,
     dc.category_id,
-    SUM(COALESCE(SUM(ABS(tf.transaction_amount)), 0)) 				-- Take absolute value since transaction_amount is negative for purchases. Assign 0 for days with no purchases.
-		OVER(
-			PARTITION BY dc.category_id 
-			ORDER BY dc.short_date 
-		) AS cumulative_sum
+    COALESCE(SUM(ABS(tf.transaction_amount)), 0) AS day_sum		-- Categorical spending each day.
 FROM date_category AS dc
 LEFT JOIN transaction_facts AS tf
 	ON dc.short_date = tf.short_date
