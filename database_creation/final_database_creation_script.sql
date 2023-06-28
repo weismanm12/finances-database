@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `spend_save`.`date` (
   `weekday_name` VARCHAR(9) NOT NULL,
   `day_month` INT NOT NULL,
   `month_name` VARCHAR(9) NOT NULL,
-  `quarter` INT NULL,
+  `quarter` INT NOT NULL,
   `year` INT NOT NULL,
   `weekday_number` INT NOT NULL,
   `month_number` INT NOT NULL,
