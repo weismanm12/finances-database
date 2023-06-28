@@ -1,7 +1,7 @@
 # Data Dictionary
 
 ## Schema
-![model](https://github.com/weismanm12/finances_database/assets/112783326/17b3b7b0-5991-43c4-b3b9-6b17a87325e7)
+![model](final_data_model.png)
 
 ## Table Descriptions
 
