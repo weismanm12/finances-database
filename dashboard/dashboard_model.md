@@ -4,11 +4,11 @@ See the data model created based on the spend_save database below:
 ![image](https://github.com/weismanm12/finances_database/assets/112783326/60713785-53f8-4eba-aef6-36b95cf74296)
 
 ## Tables
-Five of the seven tables in this data model are tables directly imported from the database. To view descriptions of the data contained in these tables, see the [spend_save data dictionary](database_creation/data_dictionary.md).
+Five of the seven tables in this data model are tables directly imported from the database. To view descriptions of the data contained in these tables, see the [spend_save data dictionary](https://github.com/weismanm12/finances_database/blob/main/database_creation/data_dictionary.md).
 The only tables in this model that are not tables in the spend_save database are `spend_save daily category_balance` and `measures_table`, of which descriptions can be seen below.
 
 ### spend_save daily category_balance
-This table was created from the SQL view "daily_category_balance". This view calculates the total spending per category on every day up to the last refresh. See the SQL code for the view creation and a sample output in the [Views Overview Jupyter Notebook](database_views/views_overview.ipynb) and/or see a description of the table below:
+This table was created from the SQL view "daily_category_balance". This view calculates the total spending per category on every day up to the last refresh. See the SQL code for the view creation and a sample output in the [Views Overview Jupyter Notebook](https://github.com/weismanm12/finances_database/blob/main/database_views/views_overview.ipynb) and/or see a description of the table below:
 | Field       | Data Type | Description                                                                                                                                                                                  |
 |-------------|-----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | category_id | int       | Unique identifier for each category. Used in combination with short_date to produce a category_id for every day up to the latest dashboard refresh.                                          |
