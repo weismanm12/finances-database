@@ -13,7 +13,7 @@ I wanted to know more about my spending habits. I had an idea of which categorie
 ## Identifying Requirements 
 My primary objective was to create a system that could meticulously monitor every transaction flowing through my bank and credit card accounts. I aimed to capture details such as transaction categories, transaction types (credit card purchases, paychecks, credit card bill payments, etc.), and transaction dates. To do so, I needed to extract data at the transaction level from my bank and credit card accounts.
 
-## Data Modeling
+## ER Diagram
 To achieve the desired requirements above, I opted to create a dimensional model consisting of 4 dimension tables and one fact table as seen below:
 
 ![data model](database_creation/data_model.png)
