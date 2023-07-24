@@ -2,8 +2,8 @@
 In this project, I developed a MySQL database called `spend_save` tracking all of my financial transactions. This includes purchases, deposits, withdraws, credit card payments, and more. Any transaction that results in a change in a bank account or credit card balance is tracked in this database. These transactions are extracted from my banking website in the form of CSV files, transformed using customized Python scripts, and loaded into the database via the sqlalchemy Python library. I then created SQL views to understand my spending habits and developed a Power BI dashboard linked to the database to view these habits visually.
 
 ## Technologies/Skills
-- SQL (MySQL), MySQL Workbench, Python (NumPy, Pandas, SQLAlchemy), Power BI, DAX
-- Data modeling, database development, data wrangling, data cleaning, ETL, data analysis, data visualization/dashboarding
+- **Technologies**: SQL (MySQL), MySQL Workbench, Python (NumPy, Pandas, SQLAlchemy), Power BI, DAX
+- **Skills**: Data modeling, database development, data wrangling, data cleaning, ETL, data analysis, data visualization/dashboarding
 
 ## Inspiration
 I wanted to know more about my spending habits. I had an idea of which categories I spent the most on, but I did not know exactly how much I was spending. I also wanted to have a way to track my spending habits over time, allowing me to see which months of the year I tend to spend the most money in. To a lesser degree, I also wanted to track my bank account balances over time.
