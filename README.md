@@ -22,24 +22,24 @@ To achieve the desired requirements above, I opted to create a dimensional model
 
 The `account`, `transaction_type`, `category`, and `date` tables are all dimensional tables, providing more information about each transaction in the transaction_facts table. However, as indicated on the data model, the `category` dimension is optional. This is because only transactions flagged as a transaction type of debit or credit card purchase are marked with a category and is enforced via a check constraint.
 
-To gain a better understanding of the schema tables and relationships, check out the [data dictionary](database_creation/data_dictionary.md).
+To gain a better understanding of the schema tables and relationships, check out the [Data Dictionary](database_creation/data_dictionary.md).
 
 ## Database Creation
 
-The creation of the database creation was performed via the "forward engineer" feature of MySQL Workbench. Additionally, the check constraint mentioned above was added. To view full creation script, view [final database creation script](database_creation/final_database_creation_script.sql).
+The creation of the database creation was performed via the "forward engineer" feature of MySQL Workbench. Additionally, the check constraint mentioned above was added. To view full creation script, view the [Final Database Creation Script](database_creation/final_database_creation_script.sql).
 
 ## Loading Data into Dimensional Tables
 
-Data was loaded into the dimension tables in the form of CSV files. To view this data, see the [dimensions table data](database_creation/dimensions_data) folder.
+Data was loaded into the dimension tables in the form of CSV files. To view this data, see the [Dimensions Data](database_creation/dimensions_data) folder.
 
 ## Transactions Processing and Loading into transactions_facts
 
-The transactions were loaded into the database from various accounts listed in the account dimension table, including savings accounts, checking accounts, and credit cards. I extracted the account data manually from my online banking website as separate CSV files for each type of account. Afterward, I imported the data into a Jupyter Notebook and applied individual transformations via Python to each dataset. I created custom functions to automate most of this process, minimizing the need for manual intervention. In cases where the Python functions could not process transactions accurately, I reviewed them manually. You can find the functions used for transaction processing in the [transactions processing functions](transactions_processing/transactions_processing_functions.py).
+The transactions were loaded into the database from various accounts listed in the account dimension table, including savings accounts, checking accounts, and credit cards. I extracted the account data manually from my online banking website as separate CSV files for each type of account. Afterward, I imported the data into a Jupyter Notebook and applied individual transformations via Python to each dataset. I created custom functions to automate most of this process, minimizing the need for manual intervention. In cases where the Python functions could not process transactions accurately, I reviewed them manually. You can find the functions used for transaction processing in the [Transactions Processing Functions](transactions_processing/transactions_processing_functions.py).
 
 To view an example of processing transactions for each account, view the respective Jupyter Notebook linked below:
-  - [Savings transactions processing](transactions_processing/savings_processing_example.ipynb)
-  - [Checking transactions processing](transactions_processing/checking_processing_example.ipynb)
-  - [Credit card transactions processing](transactions_processing/cc_processing_example.ipynb)
+  - [Savings Transactions Processing](transactions_processing/savings_processing_example.ipynb)
+  - [Checking Transactions Processing](transactions_processing/checking_processing_example.ipynb)
+  - [Credit Card Transactions Processing](transactions_processing/cc_processing_example.ipynb)
 
 Please note that for privacy reasons, all the information here and in the database/dashboard has been modified, including transaction dates, descriptions, amounts, and other relevant details.
 
@@ -47,10 +47,10 @@ Please note that for privacy reasons, all the information here and in the databa
 
 ## SQL Analysis and Database Views Creation
 
-Once I had set up the spend_save database, my next goal was to generate queries that could provide me with insights into my spending and saving patterns. I wanted to examine monthly expenses, categorical spending amounts, and observe fluctuations in my account balances/spending. Since I wanted to access this information frequently, I decided to create database views for convenient and quick access. To see the SQL code of how these views were created and sample outputs, see the [database views overview](database_views/views_overview.ipynb).
+Once I had set up the spend_save database, my next goal was to generate queries that could provide me with insights into my spending and saving patterns. I wanted to examine monthly expenses, categorical spending amounts, and observe fluctuations in my account balances/spending. Since I wanted to access this information frequently, I decided to create database views for convenient and quick access. To see the SQL code of how these views were created and sample outputs, see the [Database Views Overview](database_views/views_overview.ipynb).
 
 ## Power BI Dashboard
-In addition to the database views, I wanted a visual representation of my spending habits. I chose to create a Power BI dashboard for this purpose. I imported all the tables from the spend_save database, along with one view created in the previous step. To view the data model for the dashboard, see the [dashboard data model](dashboard/dashboard_model.md). The annotated picture below provides an overview of the dashboard with descriptions for each visual:
+In addition to the database views, I wanted a visual representation of my spending habits. I chose to create a Power BI dashboard for this purpose. I imported all the tables from the spend_save database, along with one view created in the previous step. To view the data model for the dashboard, see the [Dashboard Data Model](dashboard/dashboard_model.md). The annotated picture below provides an overview of the dashboard with descriptions for each visual:
 
 ![dashboard_picture_annotated](dashboard/dashboard_picture_annotated.png)
 Please note that the data displayed in this dashboard has been altered to render inaccurate spending amounts. However, the proportions spent in each category remain fairly accurate.
