@@ -1,3 +1,8 @@
+import numpy as np
+import pandas as pd
+from sqlalchemy import create_engine
+from datetime import date
+
 def savings_file_cleanup(csv_file):
     """
     Cleans and prepares a CSV file from savings account on Chase website for loading into transaction_facts table.
@@ -11,9 +16,6 @@ def savings_file_cleanup(csv_file):
             - review_df: The DataFrame containing transactions that need manual review for assignment of
                          transaction_type_id and category_id.
     """
-    
-    import numpy as np
-    import pandas as pd
     
     # Read the CSV file into a DataFrame
     savings_df = pd.read_csv(csv_file, encoding = 'unicode_escape', index_col=False)
@@ -88,7 +90,6 @@ def savings_file_cleanup(csv_file):
     # Return cleaned data and data to be manually processed as two DataFrames
     return savings_df, review_df
     
-    
 def checking_file_cleanup(csv_file):
     """
     Performs data cleaning and transformation on a checking account DataFrame loaded from a CSV file.
@@ -102,9 +103,6 @@ def checking_file_cleanup(csv_file):
             - review_df: The DataFrame containing transactions that need manual review for assignment of
                          transaction_type_id and category_id.
     """
-    
-    import numpy as np
-    import pandas as pd
     
     # Read the csv file into a DataFrame
     checking_df = pd.read_csv(csv_file, encoding = 'unicode_escape', index_col=False)
@@ -218,7 +216,6 @@ def checking_file_cleanup(csv_file):
     # Return cleaned data and data to be manually processed as two DataFrames
     return checking_df, review_df
 
-
 def cc_file_cleanup(spend_save_password, csv_file):
     """
     Cleans up a credit card transactions, performs data transformations, and returns the cleaned dataframes.
@@ -234,10 +231,6 @@ def cc_file_cleanup(spend_save_password, csv_file):
             - cc_review_df: The DataFrame containing transactions that need manual review for assignment of
                             transaction_type_id and category_id.
     """
-    
-    import numpy as np
-    import pandas as pd
-    from sqlalchemy import create_engine
     
     # Bank automatically marks credit card purchases with a category. These categories need to be assigned 
     # to the corresponding category_id to match database schema.
@@ -340,7 +333,6 @@ def cc_file_cleanup(spend_save_password, csv_file):
     # Return cleaned data and data to be manually processed as two DataFrames
     return cc_df, cc_review_df
 
-
 def to_spend_save(df, data_source, password):
     """
     Loads a DataFrame into a MySQL database and saves it as a CSV file.
@@ -353,11 +345,6 @@ def to_spend_save(df, data_source, password):
     Returns:
         None
     """
-
-    import numpy as np
-    import pandas as pd
-    from sqlalchemy import create_engine
-    from datetime import date
     
     # Create the connection string for the MySQL database
     database = 'mysql+pymysql://root:' + password + '@localhost/spend_save'
